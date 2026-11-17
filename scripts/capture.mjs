@@ -114,16 +114,34 @@ try {
   for (const label of [/aceptar/i, /accept/i, /agree/i, /entendido/i]) {
     try { await page.getByRole("button", { name: label }).first().click({ timeout: 1500 }); break; } catch {}
   }
-  // Posiciones (px) sobre la línea de tiempo, de la más antigua a la actual: aprox. -60, -40, -20 min y ahora.
-  const xs = [468, 512, 556, 598];
+  // Los clics sobre la barra de tiempo no cambiaron el cuadro (la hora visible no se movía).
+  // Método A: flechas del teclado (Windy mueve la línea de tiempo con izquierda/derecha).
+  // Método B: botón de reproducir y capturas seguidas mientras anima.
+  // En ambos casos la hora de cada cuadro está en la etiqueta amarilla de la pantalla.
   const caps = [];
-  for (let i = 0; i < xs.length; i++) {
-    try { await page.mouse.click(xs[i], 862); } catch {}
-    await page.waitForTimeout(5000);
-    await page.screenshot({ path: path.join(OUT, `radar_windy_${i}.png`) });
-    caps.push({ archivo: `radar_windy_${i}.png`, clicX: xs[i], capturaUTC: new Date().toISOString() });
+  const snap = async (nombre, metodo) => {
+    await page.waitForTimeout(2500);
+    const archivo = `radar_windy_${nombre}.png`;
+    await page.screenshot({ path: path.join(OUT, archivo) });
+    caps.push({ archivo, metodo, capturaUTC: new Date().toISOString() });
+  };
+  await page.mouse.move(600, 300);
+  // A: retroceder ~12 pasos y avanzar de a 4.
+  for (let i = 0; i < 12; i++) { await page.keyboard.press("ArrowLeft"); await page.waitForTimeout(250); }
+  await snap("0", "teclado: 12 pasos atras");
+  for (let k = 1; k <= 3; k++) {
+    for (let i = 0; i < 4; i++) { await page.keyboard.press("ArrowRight"); await page.waitForTimeout(250); }
+    await snap(String(k), `teclado: +${4 * k} pasos`);
   }
-  meta.radarTerceros.windy = { url, cuadros: caps, nota: "0 = más antiguo (~1 h atrás), 3 = más reciente; confirmar con la hora visible" };
+  // B: reproducir y sacar capturas seguidas.
+  try { await page.mouse.click(125, 870); } catch {}
+  for (let k = 0; k < 4; k++) {
+    await page.waitForTimeout(1800);
+    const archivo = `radar_windy_play_${k}.png`;
+    await page.screenshot({ path: path.join(OUT, archivo) });
+    caps.push({ archivo, metodo: "reproduccion", capturaUTC: new Date().toISOString() });
+  }
+  meta.radarTerceros.windy = { url, cuadros: caps, nota: "radar_windy_0..3: método teclado (0 = más antiguo); radar_windy_play_0..3: método reproducción. Confirmar el orden con la hora visible en cada pantalla" };
   await page.close();
   note("radar_windy", true);
 } catch (e) { note("radar_windy", false, e); }
