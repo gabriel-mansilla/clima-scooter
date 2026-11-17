@@ -1,5 +1,5 @@
 {
-  "capturedAtUTC": "2026-11-17T18:35:52.032Z",
+  "capturedAtUTC": "2026-11-17T19:50:58.473Z",
   "ok": {
     "windguru_buenos_aires": true,
     "windguru_quilmes": true,
@@ -19,9 +19,9 @@
   },
   "windguruModelo": "WG (bloque superior)",
   "radarDiag": [
-    "20261117_183000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261117_182000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261117_181000Z -> HTTP 403 text/html; charset=UTF-8"
+    "20261117_195000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_194000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_193000Z -> HTTP 403 text/html; charset=UTF-8"
   ],
   "radarTerceros": {
     "windy": {
@@ -29,26 +29,46 @@
       "cuadros": [
         {
           "archivo": "radar_windy_0.png",
-          "clicX": 468,
-          "capturaUTC": "2026-11-17T18:38:26.822Z"
+          "metodo": "teclado: 12 pasos atras",
+          "capturaUTC": "2026-11-17T19:53:58.407Z"
         },
         {
           "archivo": "radar_windy_1.png",
-          "clicX": 512,
-          "capturaUTC": "2026-11-17T18:38:33.158Z"
+          "metodo": "teclado: +4 pasos",
+          "capturaUTC": "2026-11-17T19:54:07.951Z"
         },
         {
           "archivo": "radar_windy_2.png",
-          "clicX": 556,
-          "capturaUTC": "2026-11-17T18:38:40.050Z"
+          "metodo": "teclado: +8 pasos",
+          "capturaUTC": "2026-11-17T19:54:16.561Z"
         },
         {
           "archivo": "radar_windy_3.png",
-          "clicX": 598,
-          "capturaUTC": "2026-11-17T18:38:47.267Z"
+          "metodo": "teclado: +12 pasos",
+          "capturaUTC": "2026-11-17T19:54:32.302Z"
+        },
+        {
+          "archivo": "radar_windy_play_0.png",
+          "metodo": "reproduccion",
+          "capturaUTC": "2026-11-17T19:54:39.943Z"
+        },
+        {
+          "archivo": "radar_windy_play_1.png",
+          "metodo": "reproduccion",
+          "capturaUTC": "2026-11-17T19:54:48.760Z"
+        },
+        {
+          "archivo": "radar_windy_play_2.png",
+          "metodo": "reproduccion",
+          "capturaUTC": "2026-11-17T19:54:57.484Z"
+        },
+        {
+          "archivo": "radar_windy_play_3.png",
+          "metodo": "reproduccion",
+          "capturaUTC": "2026-11-17T19:55:05.678Z"
         }
       ],
-      "nota": "0 = más antiguo (~1 h atrás), 3 = más reciente; confirmar con la hora visible"
+      "nota": "radar_windy_0..3: método teclado (0 = más antiguo); radar_windy_play_0..3: método reproducción. Confirmar el orden con la hora visible en cada pantalla"
     }
   }
 }
