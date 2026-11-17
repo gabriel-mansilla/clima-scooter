@@ -1,20 +1,20 @@
 {
-  "capturedAtUTC": "2026-11-17T17:04:29.924Z",
+  "capturedAtUTC": "2026-11-17T17:22:09.853Z",
   "ok": {
-    "windguru_buenos_aires": false,
+    "windguru_buenos_aires": true,
     "windguru_quilmes": true,
     "windguru_el_molino": true,
     "windguru_peru_beach": true,
     "windguru_obelisco": true,
-    "radar": true,
+    "radar": false,
     "openmeteo_chacabuco": true,
     "openmeteo_intermedio": true,
     "openmeteo_burzaco": true,
     "smn_avisos": false
   },
   "errors": {
-    "windguru_buenos_aires": "TimeoutError: page.goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.windguru.cz/261\", waiting until \"networkidle\"\n",
+    "radar": "Error: No se encontró ningún cuadro reciente del radar",
     "smn_avisos": "Error: HTTP 503"
   },
-  "radarUrls": []
+  "windguruModelo": "WG (cambio intentado)"
 }
