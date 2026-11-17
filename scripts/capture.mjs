@@ -39,23 +39,22 @@ for (const [name, id] of Object.entries(SPOTS)) {
     const page = await ctx.newPage();
     await page.goto(`https://www.windguru.cz/${id}`, { waitUntil: "domcontentloaded", timeout: 90000 });
     await page.waitForTimeout(12000);
-    // Intento de cambiar el modelo a "WG Mix" (el que usás en el teléfono). Si falla, queda GFS.
-    try {
-      await page.getByText(/GFS 13 km/).first().click({ timeout: 4000 });
-      await page.waitForTimeout(1500);
-      if (name === "quilmes") await page.screenshot({ path: path.join(OUT, "windguru_menu_modelos.png") });
-      await page.getByText(/^\s*WG/).first().click({ timeout: 4000 });
-      await page.waitForTimeout(6000);
-      meta.windguruModelo = "WG (cambio intentado)";
-    } catch (e) { meta.windguruModelo = "GFS 13 km (no se pudo cambiar)"; }
-    const table = page.locator("#div_wgfcst1, .wgfcst").first();
+    // La página tiene dos bloques: arriba el modelo "WG" (el que usás) y abajo GFS 13 km.
+    // Se recorta el bloque de arriba: desde la fila de pestañas ("Compare") hasta la fila de modelos ("GFS-Wave").
     const file = path.join(OUT, `${key}.png`);
-    if (await table.count()) {
-      // Recorta a los primeros dos días (columnas de la izquierda) para que se lea mejor.
-      const box = await table.boundingBox();
-      if (box) await page.screenshot({ path: file, clip: { x: box.x, y: box.y, width: Math.min(box.width, box.width * 0.45), height: box.height } });
-      else await table.screenshot({ path: file });
-    } else await page.screenshot({ path: file, fullPage: false });
+    await page.evaluate(() => window.scrollTo(0, 0));
+    const top = await page.getByText("Compare", { exact: true }).first().boundingBox().catch(() => null);
+    const bottom = await page.getByText(/^GFS-Wave/).first().boundingBox().catch(() => null);
+    if (top && bottom && bottom.y > top.y) {
+      await page.screenshot({
+        path: file,
+        clip: { x: 0, y: Math.max(0, top.y - 30), width: 720, height: bottom.y - top.y + 22 },
+      });
+      meta.windguruModelo = "WG (bloque superior)";
+    } else {
+      await page.screenshot({ path: file, fullPage: false });
+      meta.windguruModelo = "pantalla completa (no se encontró el bloque WG)";
+    }
     await page.close();
     note(key, true);
   } catch (e) { note(key, false, e); }
@@ -70,13 +69,14 @@ try {
   const headers = { "User-Agent": "Mozilla/5.0 (clima-scooter)", Referer: "https://www.smn.gob.ar/" };
   const fetchImg = async (d) => {
     const r = await fetch(urlFor(d), { headers });
+    (meta.radarDiag ||= []).push(`${stamp(d)} -> HTTP ${r.status} ${r.headers.get("content-type") || ""}`);
     if (!r.ok || !(r.headers.get("content-type") || "").startsWith("image/")) return null;
     const buf = Buffer.from(await r.arrayBuffer());
     return buf.length > 20000 ? buf : null;
   };
   let t = new Date(Math.floor(Date.now() / 600000) * 600000);
   let latest = null, buf0 = null;
-  for (let i = 0; i < 9 && !buf0; i++) {
+  for (let i = 0; i < 18 && !buf0; i++) {
     const d = new Date(t.getTime() - i * 600000);
     buf0 = await fetchImg(d);
     if (buf0) latest = d;
