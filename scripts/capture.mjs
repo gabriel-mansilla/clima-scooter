@@ -126,22 +126,18 @@ try {
     caps.push({ archivo, metodo, capturaUTC: new Date().toISOString() });
   };
   await page.mouse.move(600, 300);
-  // A: retroceder ~12 pasos y avanzar de a 4.
-  for (let i = 0; i < 12; i++) { await page.keyboard.press("ArrowLeft"); await page.waitForTimeout(250); }
-  await snap("0", "teclado: 12 pasos atras");
-  for (let k = 1; k <= 3; k++) {
-    for (let i = 0; i < 4; i++) { await page.keyboard.press("ArrowRight"); await page.waitForTimeout(250); }
-    await snap(String(k), `teclado: +${4 * k} pasos`);
+  // Cada flecha mueve la línea de tiempo 5 minutos. Más de ~1 h atrás Windy pone marca de agua Premium,
+  // así que se retrocede 10 pasos (~50 min) y se avanza hasta el cuadro actual: -50, -30, -10 min y ahora.
+  for (let i = 0; i < 10; i++) { await page.keyboard.press("ArrowLeft"); await page.waitForTimeout(250); }
+  await snap("0", "teclado: 10 pasos atras (~-50 min)");
+  const avances = [4, 4, 2];
+  let acumulado = 0;
+  for (let k = 0; k < avances.length; k++) {
+    for (let i = 0; i < avances[k]; i++) { await page.keyboard.press("ArrowRight"); await page.waitForTimeout(250); }
+    acumulado += avances[k];
+    await snap(String(k + 1), `teclado: +${acumulado} pasos`);
   }
-  // B: reproducir y sacar capturas seguidas.
-  try { await page.mouse.click(125, 870); } catch {}
-  for (let k = 0; k < 4; k++) {
-    await page.waitForTimeout(1800);
-    const archivo = `radar_windy_play_${k}.png`;
-    await page.screenshot({ path: path.join(OUT, archivo) });
-    caps.push({ archivo, metodo: "reproduccion", capturaUTC: new Date().toISOString() });
-  }
-  meta.radarTerceros.windy = { url, cuadros: caps, nota: "radar_windy_0..3: método teclado (0 = más antiguo); radar_windy_play_0..3: método reproducción. Confirmar el orden con la hora visible en cada pantalla" };
+  meta.radarTerceros.windy = { url, cuadros: caps, nota: "radar_windy_0..3: 0 = más antiguo (~-50 min), 3 = más reciente; cada paso son 5 min. Confirmar con la hora de la etiqueta amarilla de cada pantalla" };
   await page.close();
   note("radar_windy", true);
 } catch (e) { note("radar_windy", false, e); }
