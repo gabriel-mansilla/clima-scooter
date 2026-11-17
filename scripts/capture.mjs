@@ -78,7 +78,7 @@ try {
   };
   let t = new Date(Math.floor(Date.now() / 600000) * 600000);
   let latest = null, buf0 = null;
-  for (let i = 0; i < 18 && !buf0; i++) {
+  for (let i = 0; i < 3 && !buf0; i++) {
     const d = new Date(t.getTime() - i * 600000);
     buf0 = await fetchImg(d);
     if (buf0) latest = d;
@@ -96,42 +96,37 @@ try {
   note("radar", true);
 } catch (e) { note("radar", false, e); }
 
-// 2b) Radar de terceros (RainViewer y Windy), centrado en el trayecto. El SMN bloquea a GitHub.
-// Se sacan 3 capturas de cada uno con unos segundos de diferencia: las páginas animan los últimos cuadros
-// y la hora que muestra la pantalla permite ordenarlos y calcular el movimiento.
-const RADAR_SITES = {
-  rainviewer: "https://www.rainviewer.com/map.html?loc=-34.73,-58.415,7&layer=radar",
-  windy: "https://www.windy.com/-Weather-radar-radar?radar,-34.73,-58.415,7",
-};
+// 2b) Radar de Windy (agrega el radar de Argentina), centrado en el trayecto. El SMN bloquea a GitHub.
+// Se hacen clics en la línea de tiempo (última hora) para obtener cuadros de distintas horas;
+// la hora que muestra cada pantalla permite ordenarlos y calcular el movimiento.
 meta.radarTerceros = {};
-const rctx = await browser.newContext({
-  viewport: { width: 1200, height: 900 },
-  locale: "es-AR",
-  timezoneId: "America/Argentina/Buenos_Aires",
-  deviceScaleFactor: 1,
-});
-for (const [site, url] of Object.entries(RADAR_SITES)) {
-  const key = `radar_${site}`;
-  try {
-    const page = await rctx.newPage();
-    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 90000 });
-    await page.waitForTimeout(10000);
-    // Cierra avisos de cookies si aparecen (mejor esfuerzo).
-    for (const label of [/aceptar/i, /accept/i, /agree/i, /got it/i, /entendido/i]) {
-      try { await page.getByRole("button", { name: label }).first().click({ timeout: 1500 }); break; } catch {}
-    }
+try {
+  const rctx = await browser.newContext({
+    viewport: { width: 1200, height: 900 },
+    locale: "es-AR",
+    timezoneId: "America/Argentina/Buenos_Aires",
+    deviceScaleFactor: 1,
+  });
+  const url = "https://www.windy.com/-Weather-radar-radar?radar,-34.73,-58.415,7";
+  const page = await rctx.newPage();
+  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 90000 });
+  await page.waitForTimeout(15000);
+  for (const label of [/aceptar/i, /accept/i, /agree/i, /entendido/i]) {
+    try { await page.getByRole("button", { name: label }).first().click({ timeout: 1500 }); break; } catch {}
+  }
+  // Posiciones (px) sobre la línea de tiempo, de la más antigua a la actual: aprox. -60, -40, -20 min y ahora.
+  const xs = [468, 512, 556, 598];
+  const caps = [];
+  for (let i = 0; i < xs.length; i++) {
+    try { await page.mouse.click(xs[i], 862); } catch {}
     await page.waitForTimeout(5000);
-    const times = [];
-    for (let i = 0; i < 3; i++) {
-      await page.screenshot({ path: path.join(OUT, `${key}_${i}.png`) });
-      times.push(new Date().toISOString());
-      await page.waitForTimeout(4000);
-    }
-    meta.radarTerceros[site] = { url, capturasUTC: times };
-    await page.close();
-    note(key, true);
-  } catch (e) { note(key, false, e); }
-}
+    await page.screenshot({ path: path.join(OUT, `radar_windy_${i}.png`) });
+    caps.push({ archivo: `radar_windy_${i}.png`, clicX: xs[i], capturaUTC: new Date().toISOString() });
+  }
+  meta.radarTerceros.windy = { url, cuadros: caps, nota: "0 = más antiguo (~1 h atrás), 3 = más reciente; confirmar con la hora visible" };
+  await page.close();
+  note("radar_windy", true);
+} catch (e) { note("radar_windy", false, e); }
 
 await browser.close();
 
@@ -146,8 +141,17 @@ for (const [name, [lat, lon]] of Object.entries(POINTS)) {
       timezone: "America/Argentina/Buenos_Aires",
       forecast_days: "3",
     });
-    const r = await fetch(url);
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    let r, lastErr;
+    for (let intento = 0; intento < 4; intento++) {
+      try {
+        r = await fetch(url, { headers: { "User-Agent": "clima-scooter" } });
+        if (r.ok) break;
+        lastErr = new Error(`HTTP ${r.status}`);
+      } catch (e) { lastErr = new Error(`${e.message} (${e.cause?.code || e.cause?.message || "sin detalle"})`); }
+      r = null;
+      await new Promise((ok) => setTimeout(ok, 4000 * (intento + 1)));
+    }
+    if (!r) throw lastErr;
     fs.writeFileSync(path.join(OUT, `${key}.json`), JSON.stringify(await r.json()));
     note(key, true);
   } catch (e) { note(key, false, e); }
