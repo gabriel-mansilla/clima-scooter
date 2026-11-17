@@ -1,5 +1,5 @@
 {
-  "capturedAtUTC": "2026-11-17T17:34:50.809Z",
+  "capturedAtUTC": "2026-11-17T18:17:29.529Z",
   "ok": {
     "windguru_buenos_aires": true,
     "windguru_quilmes": true,
@@ -7,17 +7,26 @@
     "windguru_peru_beach": true,
     "windguru_obelisco": true,
     "radar": false,
-    "openmeteo_chacabuco": true,
-    "openmeteo_intermedio": true,
-    "openmeteo_burzaco": true,
+    "radar_rainviewer": true,
+    "radar_windy": true,
+    "openmeteo_chacabuco": false,
+    "openmeteo_intermedio": false,
+    "openmeteo_burzaco": false,
     "smn_avisos": false
   },
   "errors": {
     "radar": "Error: No se encontró ningún cuadro reciente del radar",
+    "openmeteo_chacabuco": "TypeError: fetch failed",
+    "openmeteo_intermedio": "TypeError: fetch failed",
+    "openmeteo_burzaco": "TypeError: fetch failed",
     "smn_avisos": "Error: HTTP 503"
   },
-  "windguruModelo": "pantalla completa (no se encontró el bloque WG)",
+  "windguruModelo": "WG (bloque superior)",
   "radarDiag": [
+    "20261117_181000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_180000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_175000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_174000Z -> HTTP 403 text/html; charset=UTF-8",
     "20261117_173000Z -> HTTP 403 text/html; charset=UTF-8",
     "20261117_172000Z -> HTTP 403 text/html; charset=UTF-8",
     "20261117_171000Z -> HTTP 403 text/html; charset=UTF-8",
@@ -31,10 +40,24 @@
     "20261117_155000Z -> HTTP 403 text/html; charset=UTF-8",
     "20261117_154000Z -> HTTP 403 text/html; charset=UTF-8",
     "20261117_153000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261117_152000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261117_151000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261117_150000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261117_145000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261117_144000Z -> HTTP 403 text/html; charset=UTF-8"
-  ]
+    "20261117_152000Z -> HTTP 403 text/html; charset=UTF-8"
+  ],
+  "radarTerceros": {
+    "rainviewer": {
+      "url": "https://www.rainviewer.com/map.html?loc=-34.73,-58.415,7&layer=radar",
+      "capturasUTC": [
+        "2026-11-17T18:19:58.448Z",
+        "2026-11-17T18:20:02.516Z",
+        "2026-11-17T18:20:06.582Z"
+      ]
+    },
+    "windy": {
+      "url": "https://www.windy.com/-Weather-radar-radar?radar,-34.73,-58.415,7",
+      "capturasUTC": [
+        "2026-11-17T18:20:34.662Z",
+        "2026-11-17T18:20:40.884Z",
+        "2026-11-17T18:20:47.202Z"
+      ]
+    }
+  }
 }
