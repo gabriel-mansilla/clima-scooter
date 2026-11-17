@@ -29,7 +29,7 @@ const ctx = await browser.newContext({
   viewport: { width: 1400, height: 1000 },
   locale: "es-AR",
   timezoneId: "America/Argentina/Buenos_Aires",
-  deviceScaleFactor: 1,
+  deviceScaleFactor: 2,
 });
 
 // 1) Windguru: captura de la tabla de pronóstico de cada spot.
@@ -37,43 +37,60 @@ for (const [name, id] of Object.entries(SPOTS)) {
   const key = `windguru_${name}`;
   try {
     const page = await ctx.newPage();
-    await page.goto(`https://www.windguru.cz/${id}`, { waitUntil: "networkidle", timeout: 60000 });
-    await page.waitForTimeout(6000);
+    await page.goto(`https://www.windguru.cz/${id}`, { waitUntil: "domcontentloaded", timeout: 90000 });
+    await page.waitForTimeout(12000);
+    // Intento de cambiar el modelo a "WG Mix" (el que usás en el teléfono). Si falla, queda GFS.
+    try {
+      await page.getByText(/GFS 13 km/).first().click({ timeout: 4000 });
+      await page.waitForTimeout(1500);
+      if (name === "quilmes") await page.screenshot({ path: path.join(OUT, "windguru_menu_modelos.png") });
+      await page.getByText(/^\s*WG/).first().click({ timeout: 4000 });
+      await page.waitForTimeout(6000);
+      meta.windguruModelo = "WG (cambio intentado)";
+    } catch (e) { meta.windguruModelo = "GFS 13 km (no se pudo cambiar)"; }
     const table = page.locator("#div_wgfcst1, .wgfcst").first();
     const file = path.join(OUT, `${key}.png`);
-    if (await table.count()) await table.screenshot({ path: file });
-    else await page.screenshot({ path: file, fullPage: false });
+    if (await table.count()) {
+      // Recorta a los primeros dos días (columnas de la izquierda) para que se lea mejor.
+      const box = await table.boundingBox();
+      if (box) await page.screenshot({ path: file, clip: { x: box.x, y: box.y, width: Math.min(box.width, box.width * 0.45), height: box.height } });
+      else await table.screenshot({ path: file });
+    } else await page.screenshot({ path: file, fullPage: false });
     await page.close();
     note(key, true);
   } catch (e) { note(key, false, e); }
 }
 
-// 2) Radar del SMN: guarda las imágenes que carga la página y una captura de respaldo.
+// 2) Radar del SMN: mosaico ZH MAX, un cuadro cada 10 minutos (hora UTC en el nombre).
+// Se baja el más reciente disponible y los 5 anteriores (última hora) para calcular el movimiento.
 try {
-  const page = await ctx.newPage();
-  const seen = new Map();
-  page.on("response", async (r) => {
-    try {
-      const u = r.url();
-      const ct = r.headers()["content-type"] || "";
-      if (ct.startsWith("image/") && /radar|mosaic|zh|cmax/i.test(u)) {
-        const buf = await r.body();
-        if (buf.length > 20000) seen.set(u, { buf, ct });
-      }
-    } catch {}
-  });
-  await page.goto("https://www.smn.gob.ar/radar", { waitUntil: "networkidle", timeout: 60000 });
-  await page.waitForTimeout(8000);
-  await page.screenshot({ path: path.join(OUT, "radar_pagina.png"), fullPage: false });
-  let i = 0;
-  const urls = [];
-  for (const [u, { buf, ct }] of seen) {
-    const ext = ct.includes("png") ? "png" : ct.includes("gif") ? "gif" : "jpg";
-    fs.writeFileSync(path.join(OUT, `radar_${i++}.${ext}`), buf);
-    urls.push(u);
+  const pad = (n) => String(n).padStart(2, "0");
+  const stamp = (d) => `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}_${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}00Z`;
+  const urlFor = (d) => `https://estaticos.smn.gob.ar/vmsr/radar/COMP_ARG_ZH_CMAX_${stamp(d)}.png`;
+  const headers = { "User-Agent": "Mozilla/5.0 (clima-scooter)", Referer: "https://www.smn.gob.ar/" };
+  const fetchImg = async (d) => {
+    const r = await fetch(urlFor(d), { headers });
+    if (!r.ok || !(r.headers.get("content-type") || "").startsWith("image/")) return null;
+    const buf = Buffer.from(await r.arrayBuffer());
+    return buf.length > 20000 ? buf : null;
+  };
+  let t = new Date(Math.floor(Date.now() / 600000) * 600000);
+  let latest = null, buf0 = null;
+  for (let i = 0; i < 9 && !buf0; i++) {
+    const d = new Date(t.getTime() - i * 600000);
+    buf0 = await fetchImg(d);
+    if (buf0) latest = d;
   }
-  meta.radarUrls = urls;
-  await page.close();
+  if (!buf0) throw new Error("No se encontró ningún cuadro reciente del radar");
+  const frames = [];
+  fs.writeFileSync(path.join(OUT, "radar_00.png"), buf0);
+  frames.push(stamp(latest));
+  for (let k = 1; k <= 5; k++) {
+    const d = new Date(latest.getTime() - k * 600000);
+    const b = await fetchImg(d);
+    if (b) { fs.writeFileSync(path.join(OUT, `radar_${pad(k)}.png`), b); frames.push(stamp(d)); }
+  }
+  meta.radarCuadrosUTC = frames; // el primero es el más reciente
   note("radar", true);
 } catch (e) { note("radar", false, e); }
 
