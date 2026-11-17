@@ -44,7 +44,9 @@ for (const [name, id] of Object.entries(SPOTS)) {
     const file = path.join(OUT, `${key}.png`);
     await page.evaluate(() => window.scrollTo(0, 0));
     const top = await page.getByText("Compare", { exact: true }).first().boundingBox().catch(() => null);
-    const bottom = await page.getByText(/^GFS-Wave/).first().boundingBox().catch(() => null);
+    // La fila de modelos varía según el spot: se prueba "GFS-Wave", y si no está, el botón "GFS 13".
+    let bottom = await page.getByText(/^GFS-Wave/).first().boundingBox().catch(() => null);
+    if (!bottom) bottom = await page.getByText(/^GFS 13$/).first().boundingBox().catch(() => null);
     if (top && bottom && bottom.y > top.y) {
       await page.screenshot({
         path: file,
@@ -93,6 +95,43 @@ try {
   meta.radarCuadrosUTC = frames; // el primero es el más reciente
   note("radar", true);
 } catch (e) { note("radar", false, e); }
+
+// 2b) Radar de terceros (RainViewer y Windy), centrado en el trayecto. El SMN bloquea a GitHub.
+// Se sacan 3 capturas de cada uno con unos segundos de diferencia: las páginas animan los últimos cuadros
+// y la hora que muestra la pantalla permite ordenarlos y calcular el movimiento.
+const RADAR_SITES = {
+  rainviewer: "https://www.rainviewer.com/map.html?loc=-34.73,-58.415,7&layer=radar",
+  windy: "https://www.windy.com/-Weather-radar-radar?radar,-34.73,-58.415,7",
+};
+meta.radarTerceros = {};
+const rctx = await browser.newContext({
+  viewport: { width: 1200, height: 900 },
+  locale: "es-AR",
+  timezoneId: "America/Argentina/Buenos_Aires",
+  deviceScaleFactor: 1,
+});
+for (const [site, url] of Object.entries(RADAR_SITES)) {
+  const key = `radar_${site}`;
+  try {
+    const page = await rctx.newPage();
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 90000 });
+    await page.waitForTimeout(10000);
+    // Cierra avisos de cookies si aparecen (mejor esfuerzo).
+    for (const label of [/aceptar/i, /accept/i, /agree/i, /got it/i, /entendido/i]) {
+      try { await page.getByRole("button", { name: label }).first().click({ timeout: 1500 }); break; } catch {}
+    }
+    await page.waitForTimeout(5000);
+    const times = [];
+    for (let i = 0; i < 3; i++) {
+      await page.screenshot({ path: path.join(OUT, `${key}_${i}.png`) });
+      times.push(new Date().toISOString());
+      await page.waitForTimeout(4000);
+    }
+    meta.radarTerceros[site] = { url, capturasUTC: times };
+    await page.close();
+    note(key, true);
+  } catch (e) { note(key, false, e); }
+}
 
 await browser.close();
 
