@@ -1,0 +1,35 @@
+name: Captura de datos del clima
+
+on:
+  schedule:
+    # Horas en UTC. Argentina es UTC-3: 22:55 y 05:55 hora local.
+    - cron: "55 1 * * *"
+    - cron: "55 8 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Instalar Playwright
+        run: |
+          npm init -y >/dev/null
+          npm install playwright@1.49.1
+          npx playwright install --with-deps chromium
+      - name: Capturar datos
+        run: node scripts/capture.mjs
+      - name: Guardar resultados
+        run: |
+          git config user.name "clima-bot"
+          git config user.email "clima-bot@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet || git commit -m "Datos $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
