@@ -1,5 +1,5 @@
 {
-  "capturedAtUTC": "2026-11-17T17:22:09.853Z",
+  "capturedAtUTC": "2026-11-17T17:34:50.809Z",
   "ok": {
     "windguru_buenos_aires": true,
     "windguru_quilmes": true,
@@ -16,5 +16,25 @@
     "radar": "Error: No se encontró ningún cuadro reciente del radar",
     "smn_avisos": "Error: HTTP 503"
   },
-  "windguruModelo": "WG (cambio intentado)"
+  "windguruModelo": "pantalla completa (no se encontró el bloque WG)",
+  "radarDiag": [
+    "20261117_173000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_172000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_171000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_170000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_165000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_164000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_163000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_162000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_161000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_160000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_155000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_154000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_153000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_152000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_151000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_150000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_145000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261117_144000Z -> HTTP 403 text/html; charset=UTF-8"
+  ]
 }
