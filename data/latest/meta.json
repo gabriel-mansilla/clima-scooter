@@ -1,5 +1,5 @@
 {
-  "capturedAtUTC": "2026-11-19T02:38:51.090Z",
+  "capturedAtUTC": "2026-11-19T09:45:04.788Z",
   "ok": {
     "windguru_buenos_aires": true,
     "windguru_quilmes": true,
@@ -19,9 +19,9 @@
   },
   "windguruModelo": "WG (bloque superior)",
   "radarDiag": [
-    "20261119_024000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261119_023000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261119_022000Z -> HTTP 403 text/html; charset=UTF-8"
+    "20261119_094000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261119_093000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261119_092000Z -> HTTP 403 text/html; charset=UTF-8"
   ],
   "radarTerceros": {
     "windy": {
@@ -30,22 +30,22 @@
         {
           "archivo": "radar_windy_0.png",
           "metodo": "teclado: 10 pasos atras (~-50 min)",
-          "capturaUTC": "2026-11-19T02:41:33.727Z"
+          "capturaUTC": "2026-11-19T09:47:39.775Z"
         },
         {
           "archivo": "radar_windy_1.png",
           "metodo": "teclado: +4 pasos",
-          "capturaUTC": "2026-11-19T02:41:38.810Z"
+          "capturaUTC": "2026-11-19T09:47:44.560Z"
         },
         {
           "archivo": "radar_windy_2.png",
           "metodo": "teclado: +8 pasos",
-          "capturaUTC": "2026-11-19T02:41:42.709Z"
+          "capturaUTC": "2026-11-19T09:47:48.928Z"
         },
         {
           "archivo": "radar_windy_3.png",
           "metodo": "teclado: +10 pasos",
-          "capturaUTC": "2026-11-19T02:41:47.788Z"
+          "capturaUTC": "2026-11-19T09:47:53.875Z"
         }
       ],
       "nota": "radar_windy_0..3: 0 = más antiguo (~-50 min), 3 = más reciente; cada paso son 5 min. Confirmar con la hora de la etiqueta amarilla de cada pantalla"
