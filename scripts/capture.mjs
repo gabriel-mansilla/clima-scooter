@@ -166,24 +166,30 @@ try {
   const W = meta.radarTerceros.weathercom;
   W.http = resp && resp.status();
   W.titulo = await wp.title();
-  const reHora = /(lun|mar|mi[eé]|jue|vie|s[aá]b|dom)\.?\s+\d{1,2}:\d{2}\s*[ap]\.?m/i;
+  // La etiqueta dice, por ejemplo, "sábado 9:05 p.m." (día completo y "p.m." con puntos).
+  const reHora = /(lun|mar|mi[eé]|jue|vie|s[aá]b|dom)\w*\.?\s+\d{1,2}:\d{2}\s*[ap]\.?\s?m/i;
   const etiqueta = wp.getByText(reHora).first();
   const leer = async () => (await etiqueta.innerText({ timeout: 3000 }).catch(() => null));
   const box = await etiqueta.boundingBox().catch(() => null);
   W.etiquetaBox = box;
+  // El mapa abre muy cerca de Buenos Aires: se aleja con la rueda para ver el SO de la provincia (Olavarría, Tandil).
+  await wp.mouse.move(180, 330);
+  for (let i = 0; i < 8; i++) { await wp.mouse.wheel(0, 300); await wp.waitForTimeout(400); }
+  await wp.waitForTimeout(3000);
   await wp.screenshot({ path: path.join(OUT, "radar_weathercom_inicial.png") });
-  W.cuadros.push({ archivo: "radar_weathercom_inicial.png", hora: await leer(), capturaUTC: new Date().toISOString(), como: "estado inicial" });
+  W.cuadros.push({ archivo: "radar_weathercom_inicial.png", hora: await leer(), capturaUTC: new Date().toISOString(), como: "estado inicial, con zoom alejado" });
   if (box) {
-    // La barra mide desde ~7 % hasta ~97 % del ancho; "ahora" cae cerca del 26 % y cada hora son ~12,4 % del ancho.
-    const y = box.y + box.height + 12;
-    const puntos = [["pasado_1h", 0.139], ["ahora", 0.26], ["mas1h", 0.384], ["mas2h", 0.508], ["mas3h", 0.632], ["mas4h", 0.756]];
-    for (const [nombre, frac] of puntos) {
-      const x = 360 * (0.074 + frac * 0.9);
+    // La barra va de ~5 % a ~95 % del ancho. "AHORA" cae en ~26,7 % y cada hora son ~11,6 % del ancho.
+    // El deslizador está ~43 px debajo de la etiqueta de hora.
+    const y = box.y + box.height / 2 + 43;
+    const puntos = [["pasado_1h", -1], ["ahora", 0], ["mas1h", 1], ["mas2h", 2], ["mas3h", 3], ["mas4h", 4]];
+    for (const [nombre, horas] of puntos) {
+      const x = 360 * (0.267 + 0.116 * horas);
       const antes = await leer();
       await wp.mouse.click(x, y);
       await wp.waitForTimeout(2500);
       let hora = await leer();
-      if (hora === antes && nombre !== "ahora") { await wp.touchscreen.tap(x, y); await wp.waitForTimeout(2500); hora = await leer(); }
+      if (hora === antes && horas !== 0) { await wp.touchscreen.tap(x, y); await wp.waitForTimeout(2500); hora = await leer(); }
       const archivo = `radar_weathercom_${nombre}.png`;
       await wp.screenshot({ path: path.join(OUT, archivo) });
       W.cuadros.push({ archivo, hora, capturaUTC: new Date().toISOString(), como: `toque en x=${Math.round(x)} y=${Math.round(y)}` });
