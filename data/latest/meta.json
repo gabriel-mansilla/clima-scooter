@@ -1,5 +1,5 @@
 {
-  "capturedAtUTC": "2026-11-22T00:05:48.417Z",
+  "capturedAtUTC": "2026-11-22T00:44:51.381Z",
   "ok": {
     "windguru_buenos_aires": true,
     "windguru_quilmes": true,
@@ -20,9 +20,9 @@
   },
   "windguruModelo": "WG (bloque superior)",
   "radarDiag": [
-    "20261122_000000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261121_235000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261121_234000Z -> HTTP 403 text/html; charset=UTF-8"
+    "20261122_004000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261122_003000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261122_002000Z -> HTTP 403 text/html; charset=UTF-8"
   ],
   "radarTerceros": {
     "windy": {
@@ -31,22 +31,22 @@
         {
           "archivo": "radar_windy_0.png",
           "metodo": "teclado: 10 pasos atras (~-50 min)",
-          "capturaUTC": "2026-11-22T00:08:24.413Z"
+          "capturaUTC": "2026-11-22T00:47:28.121Z"
         },
         {
           "archivo": "radar_windy_1.png",
           "metodo": "teclado: +4 pasos",
-          "capturaUTC": "2026-11-22T00:08:28.638Z"
+          "capturaUTC": "2026-11-22T00:47:32.901Z"
         },
         {
           "archivo": "radar_windy_2.png",
           "metodo": "teclado: +8 pasos",
-          "capturaUTC": "2026-11-22T00:08:32.711Z"
+          "capturaUTC": "2026-11-22T00:47:37.183Z"
         },
         {
           "archivo": "radar_windy_3.png",
           "metodo": "teclado: +10 pasos",
-          "capturaUTC": "2026-11-22T00:08:36.499Z"
+          "capturaUTC": "2026-11-22T00:47:41.067Z"
         }
       ],
       "nota": "radar_windy_0..3: 0 = más antiguo (~-50 min), 3 = más reciente; cada paso son 5 min. Confirmar con la hora de la etiqueta amarilla de cada pantalla"
@@ -55,14 +55,55 @@
       "cuadros": [
         {
           "archivo": "radar_weathercom_inicial.png",
-          "hora": null,
-          "capturaUTC": "2026-11-22T00:09:31.363Z",
-          "como": "estado inicial"
+          "hora": "sábado 9:45 p.m.",
+          "capturaUTC": "2026-11-22T00:48:10.905Z",
+          "como": "estado inicial, con zoom alejado"
+        },
+        {
+          "archivo": "radar_weathercom_pasado_1h.png",
+          "hora": "sábado 8:45 p.m.",
+          "capturaUTC": "2026-11-22T00:48:13.602Z",
+          "como": "toque en x=54 y=696"
+        },
+        {
+          "archivo": "radar_weathercom_ahora.png",
+          "hora": "sábado 9:45 p.m.",
+          "capturaUTC": "2026-11-22T00:48:16.443Z",
+          "como": "toque en x=96 y=696"
+        },
+        {
+          "archivo": "radar_weathercom_mas1h.png",
+          "hora": "sábado 10:45 p.m.",
+          "capturaUTC": "2026-11-22T00:48:19.833Z",
+          "como": "toque en x=138 y=696"
+        },
+        {
+          "archivo": "radar_weathercom_mas2h.png",
+          "hora": "sábado 11:45 p.m.",
+          "capturaUTC": "2026-11-22T00:48:22.769Z",
+          "como": "toque en x=180 y=696"
+        },
+        {
+          "archivo": "radar_weathercom_mas3h.png",
+          "hora": "domingo 12:45 a.m.",
+          "capturaUTC": "2026-11-22T00:48:25.727Z",
+          "como": "toque en x=221 y=696"
+        },
+        {
+          "archivo": "radar_weathercom_mas4h.png",
+          "hora": "domingo 1:50 a.m.",
+          "capturaUTC": "2026-11-22T00:48:28.719Z",
+          "como": "toque en x=263 y=696"
         }
       ],
       "http": 200,
       "titulo": "Radar interactivo para Buenos Aires, Argentina | weather.com",
-      "etiquetaBox": null
+      "etiquetaBox": {
+        "x": 62,
+        "y": 644.453125,
+        "width": 124,
+        "height": 16.09375
+      }
     }
   }
 }
