@@ -3,8 +3,8 @@ name: Captura de datos del clima
 on:
   schedule:
     # Horas en UTC. Argentina es UTC-3: 22:55 y 05:55 hora local.
-    - cron: "55 1 * * *"
-    - cron: "55 8 * * *"
+    - cron: "0 1 * * *"
+    - cron: "0 8 * * *"
   workflow_dispatch: {}
 
 permissions:
