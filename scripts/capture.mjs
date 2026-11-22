@@ -142,6 +142,57 @@ try {
   note("radar_windy", true);
 } catch (e) { note("radar_windy", false, e); }
 
+// 2c) Radar de weather.com (The Weather Company). La barra de abajo trae ~2 h de pasado y ~6 h de pronóstico
+// (la parte gris es lo ya observado, la azul lo que viene). Se emula un celular porque así lo vio Gabriel.
+// Se toca la barra en varios puntos y se captura cada cuadro; la hora sale de la etiqueta sobre la barra.
+meta.radarTerceros.weathercom = { cuadros: [] };
+try {
+  const wurl = "https://weather.com/es-US/tiempo/mapas/interactive/l/dc71ebb7365c3a814803e13f346d871b84e0a3f2339d50715f29c014bf30c2fe";
+  const wctx = await browser.newContext({
+    viewport: { width: 360, height: 800 },
+    deviceScaleFactor: 2,
+    isMobile: true,
+    hasTouch: true,
+    userAgent: "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Mobile Safari/537.36",
+    locale: "es-AR",
+    timezoneId: "America/Argentina/Buenos_Aires",
+  });
+  const wp = await wctx.newPage();
+  const resp = await wp.goto(wurl, { waitUntil: "domcontentloaded", timeout: 90000 });
+  await wp.waitForTimeout(15000);
+  for (const label of [/aceptar/i, /accept/i, /agree/i, /entendido/i]) {
+    try { await wp.getByRole("button", { name: label }).first().click({ timeout: 1500 }); break; } catch {}
+  }
+  const W = meta.radarTerceros.weathercom;
+  W.http = resp && resp.status();
+  W.titulo = await wp.title();
+  const reHora = /(lun|mar|mi[eé]|jue|vie|s[aá]b|dom)\.?\s+\d{1,2}:\d{2}\s*[ap]\.?m/i;
+  const etiqueta = wp.getByText(reHora).first();
+  const leer = async () => (await etiqueta.innerText({ timeout: 3000 }).catch(() => null));
+  const box = await etiqueta.boundingBox().catch(() => null);
+  W.etiquetaBox = box;
+  await wp.screenshot({ path: path.join(OUT, "radar_weathercom_inicial.png") });
+  W.cuadros.push({ archivo: "radar_weathercom_inicial.png", hora: await leer(), capturaUTC: new Date().toISOString(), como: "estado inicial" });
+  if (box) {
+    // La barra mide desde ~7 % hasta ~97 % del ancho; "ahora" cae cerca del 26 % y cada hora son ~12,4 % del ancho.
+    const y = box.y + box.height + 12;
+    const puntos = [["pasado_1h", 0.139], ["ahora", 0.26], ["mas1h", 0.384], ["mas2h", 0.508], ["mas3h", 0.632], ["mas4h", 0.756]];
+    for (const [nombre, frac] of puntos) {
+      const x = 360 * (0.074 + frac * 0.9);
+      const antes = await leer();
+      await wp.mouse.click(x, y);
+      await wp.waitForTimeout(2500);
+      let hora = await leer();
+      if (hora === antes && nombre !== "ahora") { await wp.touchscreen.tap(x, y); await wp.waitForTimeout(2500); hora = await leer(); }
+      const archivo = `radar_weathercom_${nombre}.png`;
+      await wp.screenshot({ path: path.join(OUT, archivo) });
+      W.cuadros.push({ archivo, hora, capturaUTC: new Date().toISOString(), como: `toque en x=${Math.round(x)} y=${Math.round(y)}` });
+    }
+  }
+  await wp.close();
+  note("radar_weathercom", true);
+} catch (e) { note("radar_weathercom", false, e); }
+
 await browser.close();
 
 // 3) Open-Meteo: modelos ICON, GFS y ECMWF en tres puntos del trayecto.
