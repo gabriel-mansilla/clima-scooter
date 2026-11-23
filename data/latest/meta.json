@@ -1,5 +1,5 @@
 {
-  "capturedAtUTC": "2026-11-23T02:10:57.443Z",
+  "capturedAtUTC": "2026-11-23T09:05:42.854Z",
   "ok": {
     "windguru_buenos_aires": true,
     "windguru_quilmes": true,
@@ -9,21 +9,20 @@
     "radar": false,
     "radar_windy": true,
     "radar_weathercom": true,
-    "openmeteo_chacabuco": false,
+    "openmeteo_chacabuco": true,
     "openmeteo_intermedio": true,
     "openmeteo_burzaco": true,
     "smn_avisos": false
   },
   "errors": {
     "radar": "Error: No se encontró ningún cuadro reciente del radar",
-    "openmeteo_chacabuco": "Error: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
     "smn_avisos": "Error: HTTP 503"
   },
   "windguruModelo": "WG (bloque superior)",
   "radarDiag": [
-    "20261123_021000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261123_020000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261123_015000Z -> HTTP 403 text/html; charset=UTF-8"
+    "20261123_090000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261123_085000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261123_084000Z -> HTTP 403 text/html; charset=UTF-8"
   ],
   "radarTerceros": {
     "windy": {
@@ -32,22 +31,22 @@
         {
           "archivo": "radar_windy_0.png",
           "metodo": "teclado: 10 pasos atras (~-50 min)",
-          "capturaUTC": "2026-11-23T02:13:35.476Z"
+          "capturaUTC": "2026-11-23T09:08:30.321Z"
         },
         {
           "archivo": "radar_windy_1.png",
           "metodo": "teclado: +4 pasos",
-          "capturaUTC": "2026-11-23T02:13:40.625Z"
+          "capturaUTC": "2026-11-23T09:08:36.501Z"
         },
         {
           "archivo": "radar_windy_2.png",
           "metodo": "teclado: +8 pasos",
-          "capturaUTC": "2026-11-23T02:13:45.627Z"
+          "capturaUTC": "2026-11-23T09:08:43.035Z"
         },
         {
           "archivo": "radar_windy_3.png",
           "metodo": "teclado: +10 pasos",
-          "capturaUTC": "2026-11-23T02:13:49.785Z"
+          "capturaUTC": "2026-11-23T09:08:49.144Z"
         }
       ],
       "nota": "radar_windy_0..3: 0 = más antiguo (~-50 min), 3 = más reciente; cada paso son 5 min. Confirmar con la hora de la etiqueta amarilla de cada pantalla"
@@ -56,44 +55,44 @@
       "cuadros": [
         {
           "archivo": "radar_weathercom_inicial.png",
-          "hora": "domingo 11:10 p.m.",
-          "capturaUTC": "2026-11-23T02:14:25.798Z",
+          "hora": "lunes 6:05 a.m.",
+          "capturaUTC": "2026-11-23T09:09:23.691Z",
           "como": "estado inicial, con zoom alejado"
         },
         {
           "archivo": "radar_weathercom_pasado_1h.png",
-          "hora": "domingo 10:10 p.m.",
-          "capturaUTC": "2026-11-23T02:14:32.898Z",
+          "hora": "lunes 5:05 a.m.",
+          "capturaUTC": "2026-11-23T09:09:26.939Z",
           "como": "toque en x=54 y=696"
         },
         {
           "archivo": "radar_weathercom_ahora.png",
-          "hora": "domingo 11:10 p.m.",
-          "capturaUTC": "2026-11-23T02:14:38.968Z",
+          "hora": "lunes 6:05 a.m.",
+          "capturaUTC": "2026-11-23T09:09:30.267Z",
           "como": "toque en x=96 y=696"
         },
         {
           "archivo": "radar_weathercom_mas1h.png",
-          "hora": "lunes 12:10 a.m.",
-          "capturaUTC": "2026-11-23T02:14:41.962Z",
+          "hora": "lunes 7:05 a.m.",
+          "capturaUTC": "2026-11-23T09:09:33.065Z",
           "como": "toque en x=138 y=696"
         },
         {
           "archivo": "radar_weathercom_mas2h.png",
-          "hora": "lunes 1:10 a.m.",
-          "capturaUTC": "2026-11-23T02:14:45.415Z",
+          "hora": "lunes 8:05 a.m.",
+          "capturaUTC": "2026-11-23T09:09:35.828Z",
           "como": "toque en x=180 y=696"
         },
         {
           "archivo": "radar_weathercom_mas3h.png",
-          "hora": "lunes 2:10 a.m.",
-          "capturaUTC": "2026-11-23T02:14:48.401Z",
+          "hora": "lunes 9:05 a.m.",
+          "capturaUTC": "2026-11-23T09:09:38.691Z",
           "como": "toque en x=221 y=696"
         },
         {
           "archivo": "radar_weathercom_mas4h.png",
-          "hora": "lunes 3:15 a.m.",
-          "capturaUTC": "2026-11-23T02:14:51.411Z",
+          "hora": "lunes 10:10 a.m.",
+          "capturaUTC": "2026-11-23T09:09:41.420Z",
           "como": "toque en x=263 y=696"
         }
       ],
@@ -102,7 +101,7 @@
       "etiquetaBox": {
         "x": 62,
         "y": 644.453125,
-        "width": 132,
+        "width": 110,
         "height": 16.09375
       }
     }
