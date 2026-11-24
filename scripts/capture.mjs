@@ -176,7 +176,7 @@ try {
   await wp.mouse.move(180, 330);
   for (let i = 0; i < 8; i++) { await wp.mouse.wheel(0, 300); await wp.waitForTimeout(400); }
   await wp.waitForTimeout(3000);
-  await wp.screenshot({ path: path.join(OUT, "radar_weathercom_inicial.png") });
+  try { await wp.screenshot({ path: path.join(OUT, "radar_weathercom_inicial.png"), timeout: 90000, animations: "disabled" }); } catch (e) { console.log("weather.com inicial falló:", e.message.split("\n")[0]); }
   W.cuadros.push({ archivo: "radar_weathercom_inicial.png", hora: await leer(), capturaUTC: new Date().toISOString(), como: "estado inicial, con zoom alejado" });
   if (box) {
     // La barra va de ~5 % a ~95 % del ancho. "AHORA" cae en ~26,7 % y cada hora son ~11,6 % del ancho.
@@ -191,7 +191,7 @@ try {
       let hora = await leer();
       if (hora === antes && horas !== 0) { await wp.touchscreen.tap(x, y); await wp.waitForTimeout(2500); hora = await leer(); }
       const archivo = `radar_weathercom_${nombre}.png`;
-      await wp.screenshot({ path: path.join(OUT, archivo) });
+      try { await wp.screenshot({ path: path.join(OUT, archivo), timeout: 90000, animations: "disabled" }); } catch (e) { console.log("weather.com cuadro falló:", archivo, e.message.split("\n")[0]); }
       W.cuadros.push({ archivo, hora, capturaUTC: new Date().toISOString(), como: `toque en x=${Math.round(x)} y=${Math.round(y)}` });
     }
   }
