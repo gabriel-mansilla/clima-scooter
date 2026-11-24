@@ -1,5 +1,5 @@
 {
-  "capturedAtUTC": "2026-11-24T02:11:18.177Z",
+  "capturedAtUTC": "2026-11-24T08:50:50.532Z",
   "ok": {
     "windguru_buenos_aires": true,
     "windguru_quilmes": true,
@@ -8,7 +8,7 @@
     "windguru_obelisco": true,
     "radar": false,
     "radar_windy": true,
-    "radar_weathercom": false,
+    "radar_weathercom": true,
     "openmeteo_chacabuco": true,
     "openmeteo_intermedio": true,
     "openmeteo_burzaco": true,
@@ -16,14 +16,13 @@
   },
   "errors": {
     "radar": "Error: No se encontró ningún cuadro reciente del radar",
-    "radar_weathercom": "TimeoutError: page.screenshot: Timeout 30000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n",
     "smn_avisos": "Error: HTTP 503"
   },
   "windguruModelo": "WG (bloque superior)",
   "radarDiag": [
-    "20261124_021000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261124_020000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261124_015000Z -> HTTP 403 text/html; charset=UTF-8"
+    "20261124_085000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261124_084000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261124_083000Z -> HTTP 403 text/html; charset=UTF-8"
   ],
   "radarTerceros": {
     "windy": {
@@ -32,34 +31,77 @@
         {
           "archivo": "radar_windy_0.png",
           "metodo": "teclado: 10 pasos atras (~-50 min)",
-          "capturaUTC": "2026-11-24T02:13:57.157Z"
+          "capturaUTC": "2026-11-24T08:53:40.749Z"
         },
         {
           "archivo": "radar_windy_1.png",
           "metodo": "teclado: +4 pasos",
-          "capturaUTC": "2026-11-24T02:14:01.481Z"
+          "capturaUTC": "2026-11-24T08:53:49.021Z"
         },
         {
           "archivo": "radar_windy_2.png",
           "metodo": "teclado: +8 pasos",
-          "capturaUTC": "2026-11-24T02:14:06.180Z"
+          "capturaUTC": "2026-11-24T08:53:56.330Z"
         },
         {
           "archivo": "radar_windy_3.png",
           "metodo": "teclado: +10 pasos",
-          "capturaUTC": "2026-11-24T02:14:11.183Z"
+          "capturaUTC": "2026-11-24T08:54:04.404Z"
         }
       ],
       "nota": "radar_windy_0..3: 0 = más antiguo (~-50 min), 3 = más reciente; cada paso son 5 min. Confirmar con la hora de la etiqueta amarilla de cada pantalla"
     },
     "weathercom": {
-      "cuadros": [],
+      "cuadros": [
+        {
+          "archivo": "radar_weathercom_inicial.png",
+          "hora": "martes 5:50 a.m.",
+          "capturaUTC": "2026-11-24T08:54:39.023Z",
+          "como": "estado inicial, con zoom alejado"
+        },
+        {
+          "archivo": "radar_weathercom_pasado_1h.png",
+          "hora": "martes 4:50 a.m.",
+          "capturaUTC": "2026-11-24T08:54:41.779Z",
+          "como": "toque en x=54 y=696"
+        },
+        {
+          "archivo": "radar_weathercom_ahora.png",
+          "hora": "martes 5:50 a.m.",
+          "capturaUTC": "2026-11-24T08:54:44.806Z",
+          "como": "toque en x=96 y=696"
+        },
+        {
+          "archivo": "radar_weathercom_mas1h.png",
+          "hora": "martes 6:50 a.m.",
+          "capturaUTC": "2026-11-24T08:54:47.611Z",
+          "como": "toque en x=138 y=696"
+        },
+        {
+          "archivo": "radar_weathercom_mas2h.png",
+          "hora": "martes 7:50 a.m.",
+          "capturaUTC": "2026-11-24T08:54:50.458Z",
+          "como": "toque en x=180 y=696"
+        },
+        {
+          "archivo": "radar_weathercom_mas3h.png",
+          "hora": "martes 8:50 a.m.",
+          "capturaUTC": "2026-11-24T08:54:53.208Z",
+          "como": "toque en x=221 y=696"
+        },
+        {
+          "archivo": "radar_weathercom_mas4h.png",
+          "hora": "martes 9:55 a.m.",
+          "capturaUTC": "2026-11-24T08:54:55.944Z",
+          "como": "toque en x=263 y=696"
+        }
+      ],
       "http": 200,
       "titulo": "Radar interactivo para Buenos Aires, Argentina | weather.com",
       "etiquetaBox": {
         "x": 62,
         "y": 644.453125,
-        "width": 109,
+        "width": 122,
         "height": 16.09375
       }
     }
