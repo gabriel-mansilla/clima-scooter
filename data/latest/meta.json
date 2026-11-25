@@ -1,5 +1,5 @@
 {
-  "capturedAtUTC": "2026-11-24T08:50:50.532Z",
+  "capturedAtUTC": "2026-11-25T02:17:51.150Z",
   "ok": {
     "windguru_buenos_aires": true,
     "windguru_quilmes": true,
@@ -20,9 +20,9 @@
   },
   "windguruModelo": "WG (bloque superior)",
   "radarDiag": [
-    "20261124_085000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261124_084000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261124_083000Z -> HTTP 403 text/html; charset=UTF-8"
+    "20261125_022000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261125_021000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261125_020000Z -> HTTP 403 text/html; charset=UTF-8"
   ],
   "radarTerceros": {
     "windy": {
@@ -31,22 +31,22 @@
         {
           "archivo": "radar_windy_0.png",
           "metodo": "teclado: 10 pasos atras (~-50 min)",
-          "capturaUTC": "2026-11-24T08:53:40.749Z"
+          "capturaUTC": "2026-11-25T02:20:37.171Z"
         },
         {
           "archivo": "radar_windy_1.png",
           "metodo": "teclado: +4 pasos",
-          "capturaUTC": "2026-11-24T08:53:49.021Z"
+          "capturaUTC": "2026-11-25T02:20:42.461Z"
         },
         {
           "archivo": "radar_windy_2.png",
           "metodo": "teclado: +8 pasos",
-          "capturaUTC": "2026-11-24T08:53:56.330Z"
+          "capturaUTC": "2026-11-25T02:20:47.677Z"
         },
         {
           "archivo": "radar_windy_3.png",
           "metodo": "teclado: +10 pasos",
-          "capturaUTC": "2026-11-24T08:54:04.404Z"
+          "capturaUTC": "2026-11-25T02:20:52.069Z"
         }
       ],
       "nota": "radar_windy_0..3: 0 = más antiguo (~-50 min), 3 = más reciente; cada paso son 5 min. Confirmar con la hora de la etiqueta amarilla de cada pantalla"
@@ -55,44 +55,44 @@
       "cuadros": [
         {
           "archivo": "radar_weathercom_inicial.png",
-          "hora": "martes 5:50 a.m.",
-          "capturaUTC": "2026-11-24T08:54:39.023Z",
+          "hora": "martes 11:20 p.m.",
+          "capturaUTC": "2026-11-25T02:21:25.941Z",
           "como": "estado inicial, con zoom alejado"
         },
         {
           "archivo": "radar_weathercom_pasado_1h.png",
-          "hora": "martes 4:50 a.m.",
-          "capturaUTC": "2026-11-24T08:54:41.779Z",
+          "hora": "martes 10:20 p.m.",
+          "capturaUTC": "2026-11-25T02:21:28.710Z",
           "como": "toque en x=54 y=696"
         },
         {
           "archivo": "radar_weathercom_ahora.png",
-          "hora": "martes 5:50 a.m.",
-          "capturaUTC": "2026-11-24T08:54:44.806Z",
+          "hora": "martes 11:20 p.m.",
+          "capturaUTC": "2026-11-25T02:21:31.728Z",
           "como": "toque en x=96 y=696"
         },
         {
           "archivo": "radar_weathercom_mas1h.png",
-          "hora": "martes 6:50 a.m.",
-          "capturaUTC": "2026-11-24T08:54:47.611Z",
+          "hora": "miércoles 12:20 a.m.",
+          "capturaUTC": "2026-11-25T02:21:34.576Z",
           "como": "toque en x=138 y=696"
         },
         {
           "archivo": "radar_weathercom_mas2h.png",
-          "hora": "martes 7:50 a.m.",
-          "capturaUTC": "2026-11-24T08:54:50.458Z",
+          "hora": "miércoles 1:20 a.m.",
+          "capturaUTC": "2026-11-25T02:21:37.441Z",
           "como": "toque en x=180 y=696"
         },
         {
           "archivo": "radar_weathercom_mas3h.png",
-          "hora": "martes 8:50 a.m.",
-          "capturaUTC": "2026-11-24T08:54:53.208Z",
+          "hora": "miércoles 2:20 a.m.",
+          "capturaUTC": "2026-11-25T02:21:40.337Z",
           "como": "toque en x=221 y=696"
         },
         {
           "archivo": "radar_weathercom_mas4h.png",
-          "hora": "martes 9:55 a.m.",
-          "capturaUTC": "2026-11-24T08:54:55.944Z",
+          "hora": "miércoles 3:25 a.m.",
+          "capturaUTC": "2026-11-25T02:21:43.179Z",
           "como": "toque en x=263 y=696"
         }
       ],
@@ -101,7 +101,7 @@
       "etiquetaBox": {
         "x": 62,
         "y": 644.453125,
-        "width": 122,
+        "width": 125,
         "height": 16.09375
       }
     }
