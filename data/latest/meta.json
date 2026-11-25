@@ -1,5 +1,5 @@
 {
-  "capturedAtUTC": "2026-11-25T02:17:51.150Z",
+  "capturedAtUTC": "2026-11-25T08:53:19.189Z",
   "ok": {
     "windguru_buenos_aires": true,
     "windguru_quilmes": true,
@@ -20,9 +20,9 @@
   },
   "windguruModelo": "WG (bloque superior)",
   "radarDiag": [
-    "20261125_022000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261125_021000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261125_020000Z -> HTTP 403 text/html; charset=UTF-8"
+    "20261125_085000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261125_084000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261125_083000Z -> HTTP 403 text/html; charset=UTF-8"
   ],
   "radarTerceros": {
     "windy": {
@@ -31,22 +31,22 @@
         {
           "archivo": "radar_windy_0.png",
           "metodo": "teclado: 10 pasos atras (~-50 min)",
-          "capturaUTC": "2026-11-25T02:20:37.171Z"
+          "capturaUTC": "2026-11-25T08:56:04.199Z"
         },
         {
           "archivo": "radar_windy_1.png",
           "metodo": "teclado: +4 pasos",
-          "capturaUTC": "2026-11-25T02:20:42.461Z"
+          "capturaUTC": "2026-11-25T08:56:11.474Z"
         },
         {
           "archivo": "radar_windy_2.png",
           "metodo": "teclado: +8 pasos",
-          "capturaUTC": "2026-11-25T02:20:47.677Z"
+          "capturaUTC": "2026-11-25T08:56:18.041Z"
         },
         {
           "archivo": "radar_windy_3.png",
           "metodo": "teclado: +10 pasos",
-          "capturaUTC": "2026-11-25T02:20:52.069Z"
+          "capturaUTC": "2026-11-25T08:56:22.665Z"
         }
       ],
       "nota": "radar_windy_0..3: 0 = más antiguo (~-50 min), 3 = más reciente; cada paso son 5 min. Confirmar con la hora de la etiqueta amarilla de cada pantalla"
@@ -55,44 +55,44 @@
       "cuadros": [
         {
           "archivo": "radar_weathercom_inicial.png",
-          "hora": "martes 11:20 p.m.",
-          "capturaUTC": "2026-11-25T02:21:25.941Z",
+          "hora": "miércoles 5:55 a.m.",
+          "capturaUTC": "2026-11-25T08:56:59.684Z",
           "como": "estado inicial, con zoom alejado"
         },
         {
           "archivo": "radar_weathercom_pasado_1h.png",
-          "hora": "martes 10:20 p.m.",
-          "capturaUTC": "2026-11-25T02:21:28.710Z",
+          "hora": "miércoles 4:55 a.m.",
+          "capturaUTC": "2026-11-25T08:57:08.451Z",
           "como": "toque en x=54 y=696"
         },
         {
           "archivo": "radar_weathercom_ahora.png",
-          "hora": "martes 11:20 p.m.",
-          "capturaUTC": "2026-11-25T02:21:31.728Z",
+          "hora": "miércoles 5:55 a.m.",
+          "capturaUTC": "2026-11-25T08:57:14.837Z",
           "como": "toque en x=96 y=696"
         },
         {
           "archivo": "radar_weathercom_mas1h.png",
-          "hora": "miércoles 12:20 a.m.",
-          "capturaUTC": "2026-11-25T02:21:34.576Z",
+          "hora": "miércoles 6:55 a.m.",
+          "capturaUTC": "2026-11-25T08:57:17.616Z",
           "como": "toque en x=138 y=696"
         },
         {
           "archivo": "radar_weathercom_mas2h.png",
-          "hora": "miércoles 1:20 a.m.",
-          "capturaUTC": "2026-11-25T02:21:37.441Z",
+          "hora": "miércoles 7:55 a.m.",
+          "capturaUTC": "2026-11-25T08:57:20.680Z",
           "como": "toque en x=180 y=696"
         },
         {
           "archivo": "radar_weathercom_mas3h.png",
-          "hora": "miércoles 2:20 a.m.",
-          "capturaUTC": "2026-11-25T02:21:40.337Z",
+          "hora": "miércoles 8:55 a.m.",
+          "capturaUTC": "2026-11-25T08:57:23.744Z",
           "como": "toque en x=221 y=696"
         },
         {
           "archivo": "radar_weathercom_mas4h.png",
-          "hora": "miércoles 3:25 a.m.",
-          "capturaUTC": "2026-11-25T02:21:43.179Z",
+          "hora": "miércoles 10:00 a.m.",
+          "capturaUTC": "2026-11-25T08:57:26.926Z",
           "como": "toque en x=263 y=696"
         }
       ],
@@ -101,7 +101,7 @@
       "etiquetaBox": {
         "x": 62,
         "y": 644.453125,
-        "width": 125,
+        "width": 141,
         "height": 16.09375
       }
     }
