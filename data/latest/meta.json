@@ -1,5 +1,5 @@
 {
-  "capturedAtUTC": "2026-11-27T08:51:25.302Z",
+  "capturedAtUTC": "2026-11-28T02:14:16.812Z",
   "ok": {
     "windguru_buenos_aires": true,
     "windguru_quilmes": true,
@@ -20,9 +20,9 @@
   },
   "windguruModelo": "WG (bloque superior)",
   "radarDiag": [
-    "20261127_085000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261127_084000Z -> HTTP 403 text/html; charset=UTF-8",
-    "20261127_083000Z -> HTTP 403 text/html; charset=UTF-8"
+    "20261128_021000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261128_020000Z -> HTTP 403 text/html; charset=UTF-8",
+    "20261128_015000Z -> HTTP 403 text/html; charset=UTF-8"
   ],
   "radarTerceros": {
     "windy": {
@@ -31,22 +31,22 @@
         {
           "archivo": "radar_windy_0.png",
           "metodo": "teclado: 10 pasos atras (~-50 min)",
-          "capturaUTC": "2026-11-27T08:54:08.840Z"
+          "capturaUTC": "2026-11-28T02:17:00.120Z"
         },
         {
           "archivo": "radar_windy_1.png",
           "metodo": "teclado: +4 pasos",
-          "capturaUTC": "2026-11-27T08:54:14.638Z"
+          "capturaUTC": "2026-11-28T02:17:07.182Z"
         },
         {
           "archivo": "radar_windy_2.png",
           "metodo": "teclado: +8 pasos",
-          "capturaUTC": "2026-11-27T08:54:19.505Z"
+          "capturaUTC": "2026-11-28T02:17:12.761Z"
         },
         {
           "archivo": "radar_windy_3.png",
           "metodo": "teclado: +10 pasos",
-          "capturaUTC": "2026-11-27T08:54:23.776Z"
+          "capturaUTC": "2026-11-28T02:17:16.973Z"
         }
       ],
       "nota": "radar_windy_0..3: 0 = más antiguo (~-50 min), 3 = más reciente; cada paso son 5 min. Confirmar con la hora de la etiqueta amarilla de cada pantalla"
@@ -55,44 +55,44 @@
       "cuadros": [
         {
           "archivo": "radar_weathercom_inicial.png",
-          "hora": "viernes 5:50 a.m.",
-          "capturaUTC": "2026-11-27T08:54:56.737Z",
+          "hora": "viernes 11:15 p.m.",
+          "capturaUTC": "2026-11-28T02:17:50.608Z",
           "como": "estado inicial, con zoom alejado"
         },
         {
           "archivo": "radar_weathercom_pasado_1h.png",
-          "hora": "viernes 4:50 a.m.",
-          "capturaUTC": "2026-11-27T08:55:01.687Z",
+          "hora": "viernes 10:15 p.m.",
+          "capturaUTC": "2026-11-28T02:17:55.164Z",
           "como": "toque en x=54 y=696"
         },
         {
           "archivo": "radar_weathercom_ahora.png",
-          "hora": "viernes 5:50 a.m.",
-          "capturaUTC": "2026-11-27T08:55:05.088Z",
+          "hora": "viernes 11:15 p.m.",
+          "capturaUTC": "2026-11-28T02:17:59.099Z",
           "como": "toque en x=96 y=696"
         },
         {
           "archivo": "radar_weathercom_mas1h.png",
-          "hora": "viernes 6:50 a.m.",
-          "capturaUTC": "2026-11-27T08:55:12.472Z",
+          "hora": "sábado 12:15 a.m.",
+          "capturaUTC": "2026-11-28T02:18:06.622Z",
           "como": "toque en x=138 y=696"
         },
         {
           "archivo": "radar_weathercom_mas2h.png",
-          "hora": "viernes 7:50 a.m.",
-          "capturaUTC": "2026-11-27T08:55:16.578Z",
+          "hora": "sábado 1:15 a.m.",
+          "capturaUTC": "2026-11-28T02:18:11.159Z",
           "como": "toque en x=180 y=696"
         },
         {
           "archivo": "radar_weathercom_mas3h.png",
-          "hora": "viernes 8:50 a.m.",
-          "capturaUTC": "2026-11-27T08:55:21.693Z",
+          "hora": "sábado 2:15 a.m.",
+          "capturaUTC": "2026-11-28T02:18:16.313Z",
           "como": "toque en x=221 y=696"
         },
         {
           "archivo": "radar_weathercom_mas4h.png",
-          "hora": "viernes 9:55 a.m.",
-          "capturaUTC": "2026-11-27T08:55:27.920Z",
+          "hora": "sábado 3:20 a.m.",
+          "capturaUTC": "2026-11-28T02:18:22.573Z",
           "como": "toque en x=263 y=696"
         }
       ],
@@ -101,7 +101,7 @@
       "etiquetaBox": {
         "x": 62,
         "y": 644.453125,
-        "width": 123,
+        "width": 122,
         "height": 16.09375
       }
     }
